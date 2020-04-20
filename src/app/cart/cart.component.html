@@ -56,12 +56,14 @@
             <b>Shipment Information</b>
           </div>
           <div class="card-body">
-            <div>Ship to: {{address}}</div>
-
+            <div>
+              <b style="font-size: 1.1rem">Ship to:</b>
+              <p>{{address}}</p>
+            </div>
           </div>
           <div class="button-bar">
-          <button class="bt1 btn btn-outline-success" (click)="submitOrder()">Confirm</button>
-          <button class="bt2 btn btn-danger" (click)="clearAll()"> Clear </button>
+            <button class="bt1 btn btn-outline-success" (click)="submitOrder()">Confirm</button>
+            <button class="bt2 btn btn-danger" (click)="clearAll()"> Clear</button>
           </div>
         </div>
       </div>
