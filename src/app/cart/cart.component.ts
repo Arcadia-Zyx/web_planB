@@ -18,10 +18,16 @@ export class CartComponent implements OnInit {
   }];
   totalPrice=0;
   temp:cartItem[]=[];
+  address: string;
+
   constructor(private httpConnection:HttpConnectionService) { }
   ngOnInit() {
     this.temp=JSON.parse(sessionStorage.getItem('cart'));
     console.log(this.temp);
+    this.httpConnection.getUserInfo().then(val=>{
+      this.address = val.address;
+    });
+
     if (this.temp==null) this.temp=[];
     this.fetchData();
   }
