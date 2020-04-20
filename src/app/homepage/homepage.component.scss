@@ -7,37 +7,43 @@
   }
 }
 
-@media only screen and (min-width: 500px){
+@media only screen and (max-width: 500px){
   .card-row{
     grid-template-columns: 1fr 1fr;
   }
 }
 
-@media only screen and (min-width: 700px){
+@media only screen and (max-width: 700px){
   .card-row{
     grid-template-columns: 1fr 1fr 1fr;
   }
 }
 
-@media only screen and (min-width: 900px){
+@media only screen and (max-width: 900px){
   .card-row{
     grid-template-columns: 1fr 1fr 1fr 1fr;
   }
 }
 
 .card-row{
-  background-color: #d1d1d1;
+  background-color: #eeeeee;
   padding: 10px 20px;
   border-radius: 5px;
-  border: black solid thick;
+  border: #949494 solid thin;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-rows: auto;
   grid-gap:1vw;
   .card{
     width :auto;
-
   }
+}
+
+.card-deck{
+  background-color: #eeeeee;
+  padding:10px 20px;
+  border: 5px;
+  overflow: auto;
 }
 
 img{

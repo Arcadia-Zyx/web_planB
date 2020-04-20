@@ -1,5 +1,5 @@
 <div class="row">
-  <div *ngFor="let i of menu" class="col-sm-1">
+  <div *ngFor="let i of menu" class="col-xl-1">
     <a *ngIf="i.name=='Logout'" href="javascript:void(0)" (click)="logout()">{{i.name}}</a>
     <a *ngIf="i.name!='Logout'" href="{{i.address}}">{{i.name}}</a>
   </div>

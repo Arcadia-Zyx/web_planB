@@ -45,7 +45,15 @@ export class AccountComponent implements OnInit {
     }
   }
   saveChange(){
-    this.needChanged=false;
+
+    this.httpConnection.updateInfo(this.myAccount).then(value=>{
+      if (value){
+        this.needChanged=false;
+        alert("Update successfully!");
+      } else {
+        alert("Update failed");
+      }
+    });
   }
   showDetail(content,index:number){
     this.selectedOrder=index;

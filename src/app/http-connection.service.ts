@@ -68,6 +68,21 @@ export class HttpConnectionService {
     });
   }
 
+  public async updateInfo(val:userInfo){
+    return new Promise<boolean>(resolve => {
+      if (!this.name) {
+        resolve(false);
+      } else {
+        this.http.put<userInfo>(backend + 'users/updateUserInfo/' + this.name,val,{headers:this.headers}).subscribe(value => {
+            resolve(true);
+          }, response => {
+            resolve(false);
+          }
+        );
+      }
+    });
+  }
+
   public async getOrders(){
     return new Promise<order[]>(resolve => {
       if (!this.name) {
@@ -141,6 +156,19 @@ export class HttpConnectionService {
       },error => {
         resolve(false);
       });
+    });
+  }
+
+  public async getLastOrder(){
+    return new Promise<order>(resolve => {
+      if (!this.name) resolve(null);
+      else {
+        this.http.get<order>(backend + 'users/getLastOrder/' + this.name, {headers: this.headers}).subscribe(value => {
+          resolve(value);
+        }, error => {
+          resolve(null);
+        });
+      }
     });
   }
 

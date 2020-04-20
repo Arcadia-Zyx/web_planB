@@ -1,13 +1,13 @@
 <div class="container">
   <app-my-nav-bar></app-my-nav-bar>
   <div class="row">
-    <div class="col-2">
-      Search items:
+    <div class="col-xl-2">
+      <h4>Search items:</h4>
     </div>
-    <div class="col-8">
+    <div class="col-xl-8">
       <input type="text" [(ngModel)]="searchText" style="width:100%" >
     </div>
-    <div class="col-2">
+    <div class="col-xl-2">
       <button class="btn btn-outline-primary" (click)="search()">Search</button>
     </div>
   </div>
@@ -25,7 +25,7 @@
         <img src="/assets/banner.png">
       </div>
       <div class="carousel-caption">
-        <h3>APPLE!</h3>
+        <h3>BANANA!</h3>
       </div>
     </ng-template>
     <ng-template ngbSlide>
@@ -33,18 +33,19 @@
         <img src="/assets/banner.png">
       </div>
       <div class="carousel-caption">
-        <h3>APPLE!</h3>
+        <h3>ORANGE!</h3>
       </div>
     </ng-template>
   </ngb-carousel>
-  <div class="row">
+  <div class="row" *ngIf="recentOrders.length>0">
     <div class="col-xl-12">
-      <div class="card-row">
-        <div class="card" *ngFor="let i of items let index=index" (click)="openDetail(content,index)">
-          <img class="card-img-top" src="{{i.picture}}">
+      <h4>Buy them again: </h4>
+      <div class="card-deck">
+        <div class="card" style="max-width: 200px;" *ngFor="let i of recentOrders let index=index" (click)="openDetail(content,index,'recent')">
+          <img style="max-width: 200px;" class="card-img-top" src="{{i.picture}}">
           <div class="card-body">
             <div class="card-title">
-              {{i.category}}-{{i.name}}
+              {{i.category | uppercase}} - <b>{{i.name}}</b>
             </div>
             <div class="card-text" style="display: flex">
               <div>{{i.price | currency}} &nbsp;&nbsp;&nbsp;</div>
@@ -57,6 +58,45 @@
       </div>
     </div>
   </div>
+  <div class="row">
+    <div class="col-xl-3">
+      <h5>Filter by category:</h5>
+    </div>
+    <div class="col-xl-2">
+      <div ngbDropdown class="d-inline-block">
+        <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>{{filterIndex>=0?categoryList[filterIndex]:'Select Category'}}</button>
+        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+          <button ngbDropdownItem *ngFor="let i of categoryList let index=index" (click)="selectFilter(index)">{{i}}</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-2">
+      <button class="btn btn-outline-danger" (click)="selectFilter(-1)">
+        Clear
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xl-12">
+      <div class="card-row">
+        <div class="card" *ngFor="let i of filterList let index=index" (click)="openDetail(content,index,'list')">
+          <img class="card-img-top" src="{{i.picture}}">
+          <div class="card-body">
+            <div class="card-title">
+              {{i.category | uppercase}} - <b>{{i.name}}</b>
+            </div>
+            <div class="card-text" style="display: flex">
+              <div>{{i.price | currency}} &nbsp;&nbsp;&nbsp;</div>
+              <div *ngIf="i.quantity==0" style="color:red">Out of stock</div>
+              <div *ngIf="i.quantity<=5 && i.quantity>0" style="color:red">Only {{i.quantity}} left</div>
+              <div *ngIf="i.quantity>5" style="color:green">In stock</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>
 
 <ng-template #content let-modal>
@@ -68,17 +108,17 @@
   </div>
   <div class="modal-body">
     <div class="card-title">
-      Item name: {{selectedItem.name}}
+      <b>Item name:</b> <p>{{selectedItem.name}}</p>
     </div>
     <div class="card-text">
-      Description: {{selectedItem.description}}
+      <b>Description:</b> <p>{{selectedItem.description}}</p>
     </div>
     <div style="text-align: center; margin:1vw 0;">
       <img style="width: 300px;left: auto;right: auto;" src="{{selectedItem.picture}}" alt="{{selectedItem.name}}'s picture"/>
     </div>
     <div *ngIf="selectedItem.quantity>0" style="display: flex">
-      <div>Quantity: &nbsp;</div>
-      <select [(ngModel)]="selectedQty">
+      <div>Quantity:</div>
+      <select [(ngModel)]="selectedQty" style="margin: 0 10px;">
         <option *ngFor="let i of selectOption">{{i}}</option>
       </select>
       <button class="btn btn-outline-primary" (click)="addToCart()">Add to Cart</button>
