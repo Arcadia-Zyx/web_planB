@@ -1,0 +1,124 @@
+<div class="container">
+  <app-my-nav-bar></app-my-nav-bar>
+  <div class="row">
+    <div class="col-xl-12">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <b>My Account Information</b>
+          </div>
+          <div class="card-body">
+            <form #af="ngForm">
+              <div class="form-group">
+                <label for="firstName">First Name:</label>
+                <input type="text" class="form-control" id="firstName" [disabled]="!needChanged" required name="fn" [(ngModel)]="myAccount.firstName" #fn="ngModel">
+              </div>
+              <div class="form-group">
+                <label for="lastName">Last Name:</label>
+                <input type="text" class="form-control" id="lastName" [disabled]="!needChanged" required name="ln" [(ngModel)]="myAccount.lastName" #ln="ngModel">
+              </div>
+              <div class="form-group">
+                <label for="phoneNumber">Phone Number:</label>
+                <input type="number" class="form-control" id="phoneNumber" [disabled]="!needChanged" required name="pn" [(ngModel)]="myAccount.phonenumber" #pn="ngModel">
+              </div>
+              <div class="form-group">
+                <label for="address">Address:</label>
+                <input type="text" class="form-control" id="address" [disabled]="!needChanged" required name="ad" [(ngModel)]="myAccount.address" #ad="ngModel">
+              </div>
+              <button class="btn btn-warning" (click)="change()">{{needChanged?'Cancel':'Change Info'}}</button>
+              <button class="btn btn-success" (click)="saveChange()" [disabled]="!needChanged || !af.form.valid">Save Change</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <b>Order History</b>
+          </div>
+          <table class="table table-striped">
+            <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Order Id</th>
+              <th scope="col">Times</th>
+              <th scope="col">Price</th>
+              <th scope="col">Status</th>
+              <th scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let order of myOrders let i=index">
+              <th scope="row">{{i + 1}}</th>
+              <td>
+                {{order._id}}
+              </td>
+              <td>
+                {{order.createdAt | date}}
+              </td>
+              <td>
+                {{order.price | currency}}
+              </td>
+              <td>
+                <div class="{{order.status=='Pending'?'text-warning':(order.status=='Approved'?'text-success':'text-danger')}}"><b>{{order.status}}</b></div>
+              </td>
+              <td>
+                <button class="btn" (click)="showDetail(content,i)">
+                  <svg class="bi bi-card-list" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M14.5 3h-13a.5.5 0 00-.5.5v9a.5.5 0 00.5.5h13a.5.5 0 00.5-.5v-9a.5.5 0 00-.5-.5zm-13-1A1.5 1.5 0 000 3.5v9A1.5 1.5 0 001.5 14h13a1.5 1.5 0 001.5-1.5v-9A1.5 1.5 0 0014.5 2h-13z" clip-rule="evenodd"/>
+                    <path fill-rule="evenodd" d="M5 8a.5.5 0 01.5-.5h7a.5.5 0 010 1h-7A.5.5 0 015 8zm0-2.5a.5.5 0 01.5-.5h7a.5.5 0 010 1h-7a.5.5 0 01-.5-.5zm0 5a.5.5 0 01.5-.5h7a.5.5 0 010 1h-7a.5.5 0 01-.5-.5z" clip-rule="evenodd"/>
+                    <circle cx="3.5" cy="5.5" r=".5"/>
+                    <circle cx="3.5" cy="8" r=".5"/>
+                    <circle cx="3.5" cy="10.5" r=".5"/>
+                  </svg>
+                </button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h3 class="modal-title" id="modal-title">Order Detail</h3>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <table class="table table-striped table-borderless">
+      <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Items</th>
+        <th scope="col">Qty</th>
+        <th scope="col">Price</th>
+        <th scope="col">Total Price</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of myOrders[selectedOrder].items let i=index">
+        <th scope="row">{{i + 1}}</th>
+        <td>
+          <img src="{{item.picture}}">
+          {{item.name}}
+        </td>
+        <td>
+          {{item.quantity | number}}
+        </td>
+        <td>
+          {{item.price | currency}}
+        </td>
+        <td>
+          {{item.price * item.quantity | currency}}
+        </td>
+      </tr>
+      </tbody>
+      <div class="price-tag card-title">Total: {{totalPrice | currency}}</div>
+    </table>
+  </div>
+</ng-template>

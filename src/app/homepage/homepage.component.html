@@ -1,0 +1,87 @@
+<div class="container">
+  <app-my-nav-bar></app-my-nav-bar>
+  <div class="row">
+    <div class="col-2">
+      Search items:
+    </div>
+    <div class="col-8">
+      <input type="text" [(ngModel)]="searchText" style="width:100%" >
+    </div>
+    <div class="col-2">
+      <button class="btn btn-outline-primary" (click)="search()">Search</button>
+    </div>
+  </div>
+  <ngb-carousel>
+    <ng-template ngbSlide>
+      <div class="picsum-img-wrapper">
+        <img src="/assets/banner.png">
+      </div>
+      <div class="carousel-caption">
+        <h3>APPLE!</h3>
+      </div>
+    </ng-template>
+    <ng-template ngbSlide>
+      <div class="picsum-img-wrapper">
+        <img src="/assets/banner.png">
+      </div>
+      <div class="carousel-caption">
+        <h3>APPLE!</h3>
+      </div>
+    </ng-template>
+    <ng-template ngbSlide>
+      <div class="picsum-img-wrapper">
+        <img src="/assets/banner.png">
+      </div>
+      <div class="carousel-caption">
+        <h3>APPLE!</h3>
+      </div>
+    </ng-template>
+  </ngb-carousel>
+  <div class="row">
+    <div class="col-xl-12">
+      <div class="card-row">
+        <div class="card" *ngFor="let i of items let index=index" (click)="openDetail(content,index)">
+          <img class="card-img-top" src="{{i.picture}}">
+          <div class="card-body">
+            <div class="card-title">
+              {{i.category}}-{{i.name}}
+            </div>
+            <div class="card-text" style="display: flex">
+              <div>{{i.price | currency}} &nbsp;&nbsp;&nbsp;</div>
+              <div *ngIf="i.quantity==0" style="color:red">Out of stock</div>
+              <div *ngIf="i.quantity<=5 && i.quantity>0" style="color:red">Only {{i.quantity}} left</div>
+              <div *ngIf="i.quantity>5" style="color:green">In stock</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h3 class="modal-title" id="modal-title">Items detail</h3>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="card-title">
+      Item name: {{selectedItem.name}}
+    </div>
+    <div class="card-text">
+      Description: {{selectedItem.description}}
+    </div>
+    <div style="text-align: center; margin:1vw 0;">
+      <img style="width: 300px;left: auto;right: auto;" src="{{selectedItem.picture}}" alt="{{selectedItem.name}}'s picture"/>
+    </div>
+    <div *ngIf="selectedItem.quantity>0" style="display: flex">
+      <div>Quantity: &nbsp;</div>
+      <select [(ngModel)]="selectedQty">
+        <option *ngFor="let i of selectOption">{{i}}</option>
+      </select>
+      <button class="btn btn-outline-primary" (click)="addToCart()">Add to Cart</button>
+    </div>
+  </div>
+</ng-template>

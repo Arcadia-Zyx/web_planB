@@ -1,0 +1,10 @@
+{
+  "/users/*": {
+    "target": "https://simonxu0811-infsci2560-api.glitch.me/",
+    "secure": false
+  },
+  "/getAllItems": {
+    "target": "https://simonxu0811-infsci2560-api.glitch.me/",
+    "secure": false
+  }
+}
