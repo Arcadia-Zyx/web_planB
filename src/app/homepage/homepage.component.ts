@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import {HttpConnectionService,item,cartItem} from '../http-connection.service';
+import {Router} from '@angular/router';
+import {isAsciiLetter} from "codelyzer/angular/styles/chars";
 
 @Component({
   selector: 'app-homepage',
@@ -17,6 +19,7 @@ export class HomepageComponent implements OnInit {
   constructor(private http:HttpClient,
               private modalService:NgbModal,
               private httpConnection:HttpConnectionService,
+              private router: Router
   ) { }
 
   ngOnInit() {
@@ -108,7 +111,8 @@ export class HomepageComponent implements OnInit {
   addToCart(){
     if (this.httpConnection.status=='logout' && this.httpConnection.localTest==false) {
       alert('You need to login first!');
-      return;
+      this.modalService.dismissAll();
+      this.router.navigate(['login']);
     }
     if (this.selectedQty==0) return;
     let temp:cartItem[]=JSON.parse(sessionStorage.getItem('cart'));
@@ -118,6 +122,7 @@ export class HomepageComponent implements OnInit {
     this.selectedQty=0;
     console.log(temp);
     sessionStorage.setItem('cart',JSON.stringify(temp));
+    alert('Add to cart successfully');
     this.modalService.dismissAll('add');
   }
 }
