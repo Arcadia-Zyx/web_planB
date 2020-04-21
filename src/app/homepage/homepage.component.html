@@ -1,6 +1,35 @@
 <div class="container">
   <app-my-nav-bar></app-my-nav-bar>
 
+
+    <ngb-carousel>
+      <ng-template ngbSlide>
+        <div class="picsum-img-wrapper">
+          <img src="/assets/banner.png">
+        </div>
+        <div class="carousel-caption">
+          <h3>APPLE!</h3>
+        </div>
+      </ng-template>
+      <ng-template ngbSlide>
+        <div class="picsum-img-wrapper">
+          <img src="/assets/banner.png">
+          <div class="carousel-caption">
+            <h3>BANANA!</h3>
+          </div>
+        </div>
+      </ng-template>
+      <ng-template ngbSlide>
+        <div class="picsum-img-wrapper">
+          <img src="/assets/banner.png">
+          <div class="carousel-caption">
+            <h3>ORANGE!</h3>
+          </div>
+        </div>
+      </ng-template>
+    </ngb-carousel>
+
+
   <div id="search">
     <form class="row" id="search-form" action="" method="POST" enctype="multipart/form-data">
       <div class="form-group col-sm-9 col-xs-9">
