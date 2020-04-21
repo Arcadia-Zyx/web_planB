@@ -1,0 +1,19 @@
+diff a/src/app/homepage/homepage.component.html b/src/app/homepage/homepage.component.html	(rejected hunks)
+@@ -98,10 +98,15 @@
+               <div *ngIf="i.quantity<=5 && i.quantity>0" style="color:red">Only {{i.quantity}} left</div>
+               <div *ngIf="i.quantity>5" style="color:green">In stock</div>
+             </div>
+-          </div>
+-        </div>
++
++
++
++
++
++
+       </div>
+     </div>
++
+   </div>
+ 
+ </div>

@@ -61,7 +61,7 @@ export class AccountComponent implements OnInit {
     for (let i of this.myOrders[this.selectedOrder].items){
       this.totalPrice+=i.price*i.quantity;
     }
-    this.modalService.open(content,{ariaLabelledBy:'modal-title'});
+    this.modalService.open(content,{ariaLabelledBy:'modal-title',size: 'lg' });
   }
 
 }
