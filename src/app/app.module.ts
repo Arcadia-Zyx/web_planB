@@ -19,6 +19,8 @@ import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatIconModule} from "@angular/material/icon";
 import {MatListModule} from "@angular/material/list";
 import {MatButtonModule} from "@angular/material/button";
+import {AdminComponent} from './admin/admin.component';
+import {ChartsModule} from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -30,6 +32,7 @@ import {MatButtonModule} from "@angular/material/button";
     LoginPageComponent,
     SignupComponent,
     SearchBarComponent,
+    AdminComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,7 +52,8 @@ import {MatButtonModule} from "@angular/material/button";
     MatListModule,
     MatIconModule,
     MatButtonModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    ChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
