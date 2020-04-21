@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpConnectionService} from '../http-connection.service';
 import {Router} from '@angular/router';
+import {$} from "protractor";
 
 @Component({
   selector: 'app-my-nav-bar',
@@ -8,7 +9,7 @@ import {Router} from '@angular/router';
   styleUrls: ['./my-nav-bar.component.scss']
 })
 export class MyNavBarComponent implements OnInit {
-
+  public isMenuCollapsed = true;
   menu=[{
     name:'Home',
     address:'/'
@@ -39,6 +40,7 @@ export class MyNavBarComponent implements OnInit {
         address:'/shoppingCart'
       }];
     }
+
   }
 
   logout(){
@@ -52,6 +54,7 @@ export class MyNavBarComponent implements OnInit {
       address:'/login'
     }];
     this.router.navigateByUrl('/');
+
   }
 
 }

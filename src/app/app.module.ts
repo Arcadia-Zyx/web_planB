@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { FlexLayoutModule } from "@angular/flex-layout";
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomepageComponent } from './homepage/homepage.component';
@@ -12,8 +12,13 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { MyNavBarComponent } from './my-nav-bar/my-nav-bar.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { SignupComponent } from './signup/signup.component';
-import { AdminComponent } from './admin/admin.component';
-import {ChartsModule} from 'ng2-charts';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SearchBarComponent } from './search-bar/search-bar.component';
+import {MatSidenavModule} from "@angular/material/sidenav";
+import {MatToolbarModule} from "@angular/material/toolbar";
+import {MatIconModule} from "@angular/material/icon";
+import {MatListModule} from "@angular/material/list";
+import {MatButtonModule} from "@angular/material/button";
 
 @NgModule({
   declarations: [
@@ -24,7 +29,7 @@ import {ChartsModule} from 'ng2-charts';
     MyNavBarComponent,
     LoginPageComponent,
     SignupComponent,
-    AdminComponent,
+    SearchBarComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,7 +37,19 @@ import {ChartsModule} from 'ng2-charts';
     FormsModule,
     HttpClientModule,
     NgbModule,
-    ChartsModule
+    BrowserAnimationsModule,
+    MatSidenavModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatListModule,
+    BrowserModule,
+    BrowserAnimationsModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatListModule,
+    MatIconModule,
+    MatButtonModule,
+    FlexLayoutModule
   ],
   providers: [],
   bootstrap: [AppComponent]
