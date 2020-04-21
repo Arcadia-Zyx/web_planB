@@ -114,18 +114,17 @@ export class HomepageComponent implements OnInit {
   }
 
   search(){
-    console.log("bug in search")
-
     if (this.searchText){
       this.httpConnection.searchItems(this.searchText).then(value => {
         if (value) this.items=value;
+        this.selectFilter(-1);
       });
     } else {
       this.httpConnection.getAllItems().then(value=>{
         this.items=value;
+        this.selectFilter(-1);
       });
     }
-    this.selectFilter(-1);
   }
   selectFilter(index:number){
       this.filterIndex=index;

@@ -8,7 +8,15 @@ declare var $: any;
   styleUrls: ['./account.component.scss']
 })
 export class AccountComponent implements OnInit {
-  myAccount:userInfo;
+  myAccount:userInfo={
+    firstName:'',
+    lastName:'',
+    phonenumber:null,
+    address:'',
+    username:'',
+    password:'',
+    role:'User'
+  };
   backup:userInfo;
 
   myOrders:order[]=[];
