@@ -1,0 +1,58 @@
+<div class="container">
+  <app-my-nav-bar></app-my-nav-bar>
+  <div class="row">
+    <div class="col-xl-4">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <b>Pending Orders:</b>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="dig" style="text-align: center; font-size: 5rem;">
+            <b>
+              <span style="color:green">5</span>
+            </b>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <b>Total Incomes:</b>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="dig" style="text-align: center; font-size: 5rem;">
+            <b>
+              <span style="color:red">{{5|currency}}</span>
+            </b>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="col-xl-8">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <b>Sales Data:</b>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="chart">
+            <canvas baseChart
+                    [data]="pieChartData"
+                    [labels]="pieChartLabels"
+                    [chartType]="pieChartType"
+                    [options]="pieChartOptions"
+                    [plugins]="pieChartPlugins"
+                    [colors]="pieChartColors"
+                    [legend]="pieChartLegend">
+            </canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
