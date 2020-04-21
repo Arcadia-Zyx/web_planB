@@ -22,9 +22,12 @@
     "@ng-bootstrap/ng-bootstrap": "^5.3.1",
     "bootstrap": "^4.4.1",
     "bootstrap-icons": "^1.0.0-alpha3",
+    "chart.js": "^2.9.3",
+    "ng2-charts": "^2.3.0",
     "rxjs": "~6.4.0",
     "tslib": "^1.10.0",
-    "zone.js": "~0.9.1"
+    "zone.js": "~0.9.1",
+    "chartjs-plugin-datalabels": "latest"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.803.2",

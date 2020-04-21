@@ -5,6 +5,7 @@ import { AccountComponent } from './account/account.component';
 import { CartComponent } from './cart/cart.component';
 import {LoginPageComponent} from './login-page/login-page.component';
 import {SignupComponent} from './signup/signup.component';
+import {AdminComponent} from './admin/admin.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,10 @@ const routes: Routes = [
   },{
     path:'signup',
     component: SignupComponent
+  },
+  {
+    path:'admin',
+    component: AdminComponent
   }
 ];
 

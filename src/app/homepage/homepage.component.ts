@@ -121,6 +121,7 @@ export class HomepageComponent implements OnInit {
         this.items=value;
       });
     }
+    this.selectFilter(-1);
   }
   selectFilter(index:number){
       this.filterIndex=index;

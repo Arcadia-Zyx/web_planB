@@ -50,3 +50,12 @@ img{
   max-width: initial;
   max-height: initial;
 }
+
+.picsum-img-wrapper{
+  height: 250px;
+  width:auto;
+  img{
+    max-width:100%;
+    height: inherit;
+  }
+}

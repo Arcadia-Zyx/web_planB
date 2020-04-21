@@ -1,16 +1,17 @@
 <div class="container">
   <app-my-nav-bar></app-my-nav-bar>
   <div class="row">
-    <div class="col-xl-2">
+    <div class="col-2">
       <h4>Search items:</h4>
     </div>
-    <div class="col-xl-8">
+    <div class="col-8">
       <input type="text" [(ngModel)]="searchText" style="width:100%; position: relative; top:5px;" >
     </div>
-    <div class="col-xl-2">
+    <div class="col-2">
       <button class="btn btn-outline-primary" (click)="search()">Search</button>
     </div>
   </div>
+  <div class="row">
   <ngb-carousel>
     <ng-template ngbSlide>
       <div class="picsum-img-wrapper">
@@ -37,8 +38,9 @@
       </div>
     </ng-template>
   </ngb-carousel>
+  </div>
   <div class="row" *ngIf="recentOrders.length>0">
-    <div class="col-xl-12">
+    <div class="col-12">
       <h4>Buy them again: </h4>
       <div class="card-deck">
         <div class="card" style="max-width: 200px;" *ngFor="let i of recentOrders let index=index" (click)="openDetail(content,index,'recent')">
@@ -59,10 +61,10 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-xl-3">
+    <div class="col-3">
       <h5>Filter by category:</h5>
     </div>
-    <div class="col-xl-2">
+    <div class="col-2">
       <div ngbDropdown class="d-inline-block">
         <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>{{filterIndex>=0?categoryList[filterIndex]:'Select Category'}}</button>
         <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
@@ -70,14 +72,14 @@
         </div>
       </div>
     </div>
-    <div class="col-xl-2">
+    <div class="col-2">
       <button class="btn btn-outline-danger" (click)="selectFilter(-1)">
         Clear
       </button>
     </div>
   </div>
   <div class="row">
-    <div class="col-xl-12">
+    <div class="col-12">
       <div class="card-row">
         <div class="card" *ngFor="let i of filterList let index=index" (click)="openDetail(content,index,'list')">
           <img class="card-img-top" src="{{i.picture}}">
