@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpConnectionService,userInfo,item,order} from '../http-connection.service';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
-
+declare var $: any;
 @Component({
   selector: 'app-account',
   templateUrl: './account.component.html',
@@ -63,4 +63,5 @@ export class AccountComponent implements OnInit {
     }
     this.modalService.open(content,{ariaLabelledBy:'modal-title'});
   }
+
 }

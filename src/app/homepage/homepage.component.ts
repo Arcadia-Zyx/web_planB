@@ -4,6 +4,7 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import {HttpConnectionService,item,cartItem} from '../http-connection.service';
 import {Router} from '@angular/router';
 import {isAsciiLetter} from "codelyzer/angular/styles/chars";
+declare var $: any;
 
 @Component({
   selector: 'app-homepage',
@@ -26,8 +27,9 @@ export class HomepageComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
     if (this.httpConnection.localTest){
-      this.items=[{
+      this.filterList=[{
         _id:'123',
         name: "apple",
         description: "des",
@@ -112,6 +114,8 @@ export class HomepageComponent implements OnInit {
   }
 
   search(){
+    console.log("bug in search")
+
     if (this.searchText){
       this.httpConnection.searchItems(this.searchText).then(value => {
         if (value) this.items=value;
@@ -171,4 +175,7 @@ export class HomepageComponent implements OnInit {
       this.modalService.dismissAll('add');
     }
   }
+
+
+
 }

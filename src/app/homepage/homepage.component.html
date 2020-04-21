@@ -1,47 +1,51 @@
 <div class="container">
   <app-my-nav-bar></app-my-nav-bar>
-  <div class="row">
-    <div class="col-xl-2">
-      <h4>Search items:</h4>
-    </div>
-    <div class="col-xl-8">
-      <input type="text" [(ngModel)]="searchText" style="width:100%; position: relative; top:5px;" >
-    </div>
-    <div class="col-xl-2">
-      <button class="btn btn-outline-primary" (click)="search()">Search</button>
-    </div>
+
+  <div id="search">
+    <form class="row" id="search-form" action="" method="POST" enctype="multipart/form-data">
+      <div class="form-group col-sm-9 col-xs-9">
+        <input class="form-control" [(ngModel)]="searchText" name="Search" type="text" placeholder="Search" />
+      </div>
+      <div class="form-group col-sm-3 col-xs-3">
+        <button type="submit" class="btn btn-block btn-primary" (click)="search()">Search</button>
+      </div>
+    </form>
   </div>
-  <ngb-carousel>
-    <ng-template ngbSlide>
-      <div class="picsum-img-wrapper">
-        <img src="/assets/banner.png">
+
+  <div id="filter">
+    <form class="row">
+      <div class="form-group col-sm-4 col-xs-6">
+        <select data-filter="make" class="filter-make filter form-control">
+          <option value="">Select Category</option>
+          <option value="" *ngFor="let i of categoryList let index=index" (click)="selectFilter(index)">{{i}}</option>
+          <option value="" (click)="selectFilter(-1)">Show All </option>
+        </select>
       </div>
-      <div class="carousel-caption">
-        <h3>APPLE!</h3>
+
+
+      <div class="form-group col-sm-4 col-xs-6">
+        <select data-filter="price" class="filter-price filter form-control">
+          <option value="">Select Price Range</option>
+          <option value="">Show All</option>
+        </select>
       </div>
-    </ng-template>
-    <ng-template ngbSlide>
-      <div class="picsum-img-wrapper">
-        <img src="/assets/banner.png">
+
+      <div class="form-group col-sm-4 col-xs-6">
+        <button class="btn btn-block btn-primary" (click)="selectFilter(-1)">
+          Clear
+        </button>
       </div>
-      <div class="carousel-caption">
-        <h3>BANANA!</h3>
-      </div>
-    </ng-template>
-    <ng-template ngbSlide>
-      <div class="picsum-img-wrapper">
-        <img src="/assets/banner.png">
-      </div>
-      <div class="carousel-caption">
-        <h3>ORANGE!</h3>
-      </div>
-    </ng-template>
-  </ngb-carousel>
+
+    </form>
+  </div>
+
+
   <div class="row" *ngIf="recentOrders.length>0">
     <div class="col-xl-12">
       <h4>Buy them again: </h4>
-      <div class="card-deck">
-        <div class="card" style="max-width: 200px;" *ngFor="let i of recentOrders let index=index" (click)="openDetail(content,index,'recent')">
+      <div class="card-row">
+        <div class="row">
+        <div class="card col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-3" style="max-width: 200px;" *ngFor="let i of recentOrders let index=index" (click)="openDetail(content,index,'recent')">
           <img style="max-width: 200px;" class="card-img-top" src="{{i.picture}}">
           <div class="card-body">
             <div class="card-title">
@@ -58,28 +62,39 @@
       </div>
     </div>
   </div>
-  <div class="row">
-    <div class="col-xl-3">
-      <h5>Filter by category:</h5>
-    </div>
-    <div class="col-xl-2">
-      <div ngbDropdown class="d-inline-block">
-        <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>{{filterIndex>=0?categoryList[filterIndex]:'Select Category'}}</button>
-        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-          <button ngbDropdownItem *ngFor="let i of categoryList let index=index" (click)="selectFilter(index)">{{i}}</button>
+  </div>
+
+
+  <div id="productView" class="product-grid" >
+    <h4>Product List1: </h4>
+    <div class="row" >
+
+    <div class="product span3 col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-3" *ngFor="let i of filterList let index=index" (click)="openDetail(content,index,'list')">
+      <div class="product-image">
+        <img class="card-img-top" src="{{i.picture}}">
+      </div>
+      <div class="card-body">
+        <div class="card-title">
+          {{i.category | uppercase}} - <b>{{i.name}}</b>
+        </div>
+        <div class="card-text" style="display: flex">
+          <div>{{i.price | currency}} &nbsp;&nbsp;&nbsp;</div>
+          <div *ngIf="i.quantity==0" style="color:red">Out of stock</div>
+          <div *ngIf="i.quantity<=5 && i.quantity>0" style="color:red">Only {{i.quantity}} left</div>
+          <div *ngIf="i.quantity>5" style="color:green">In stock</div>
         </div>
       </div>
     </div>
-    <div class="col-xl-2">
-      <button class="btn btn-outline-danger" (click)="selectFilter(-1)">
-        Clear
-      </button>
     </div>
   </div>
+
+
   <div class="row">
     <div class="col-xl-12">
+      <h4>Product List2: </h4>
       <div class="card-row">
-        <div class="card" *ngFor="let i of filterList let index=index" (click)="openDetail(content,index,'list')">
+        <div class="row">
+        <div class="card col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-3 " style="max-width: 200px;" *ngFor="let i of filterList let index=index" (click)="openDetail(content,index,'list')">
           <img class="card-img-top" src="{{i.picture}}">
           <div class="card-body">
             <div class="card-title">
@@ -95,6 +110,7 @@
         </div>
       </div>
     </div>
+  </div>
   </div>
 
 </div>

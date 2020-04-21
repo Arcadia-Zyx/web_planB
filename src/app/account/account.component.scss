@@ -10,7 +10,8 @@ form{
 .card{
   margin:10px 0;
 }
-
+button{
+}
 img{
   max-width: 30px;
 }
@@ -18,4 +19,205 @@ img{
 .price-tag{
   padding:5px 10px;
   font-style: oblique;
+}
+
+
+/* Set box sizing to border-box */
+html {
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+.table {
+  width: 100%;
+}
+
+.tr:first-child {
+  display: none;
+}
+
+.rh > span {
+  display: block;
+  position: relative;
+}
+
+/* Insert header name before each row on mobile */
+.td:before {
+  content: attr(data-header);
+  float: left;
+  width: 25%;
+}
+
+/* CSS border triangle trick */
+.table .rh > span:after {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 0;
+  height: 0;
+  border: 7px solid transparent;
+  border-top-color: black;
+  z-index: 2;
+  right: 15px;
+  top: 14px;
+  pointer-events: none;
+}
+
+/* Flip CSS border triangle on active */
+.table .rh.active > span:after {
+  border-top-color: transparent;
+  border-bottom-color: black;
+  top: 5px;
+}
+
+/* Media Queries */
+@media screen and (min-width: 768px) {
+  .rh {
+    display: none;
+  }
+
+  .table {
+    display: table;
+    width: 750px;
+  }
+
+  .thead {
+    display: table-header-group;
+  }
+
+  .tbody {
+    display: table-row-group;
+  }
+
+  .tr,
+  .tr:first-child {
+    display: table-row;
+  }
+
+  .th,
+  .td {
+    display: table-cell;
+  }
+
+  .td:before {
+    content: "";
+  }
+}
+
+
+
+
+
+
+
+
+/* ===========
+    Styling
+   =========== */
+body {
+  font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+}
+
+.table {
+  border: 1px solid #54c3e8;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+  overflow: hidden;
+}
+
+.th,
+.rh > span {
+    background: #74dbfc;
+}
+
+.tr .td:nth-child(even) {
+  background: #dcf4fc;
+}
+
+.th,
+.tr .td,
+.rh,
+.rh.active:nth-last-child(2) {
+  border-bottom: 1px solid #54c3e8;
+}
+
+.rh:nth-last-child(2) {
+  border-bottom: none;
+}
+
+.td {
+  padding: 5px 15px;
+}
+
+.rh > span {
+  padding: 5px 15px;
+  font-size: 1.25em;
+  font-weight: 600;
+}
+
+.tr:first-child,
+.tr:last-child {
+  border-bottom: none;
+}
+
+.tr:last-child .td:last-child {
+  border-bottom: none;
+}
+
+@media screen and (min-width: 768px) {
+  .th,
+  .td,
+  .tr,
+  .tr .td:last-child {
+    border-bottom: 1px solid #54c3e8;
+  }
+
+  .th,
+  .td {
+    padding: 5px;
+  }
+
+  .th {
+    border-right: 1px solid #00bfff;
+  }
+
+  .td {
+    border-right: 1px solid #54c3e8;
+  }
+
+  .th:last-child,
+  .td:last-child {
+    border-right: none;
+  }
+
+  /* Unfortunately we cannot just use :nth-child(odd/even) since the
+     .rh elements are interspersed in there. Until CSS 4 I don't
+     think there will be a way to style alterating rows for this
+     without using JavaScript or whatever builds the table to add
+     a special class. */
+  .tr.alternate-highlight {
+    background: #dcf4fc;
+  }
+
+  /* Reset Mobile Styles */
+  .tr:last-child .td:first-child {
+    border-top: none;
+  }
+
+  .tr:last-child .td {
+    border-bottom: none;
+  }
+
+  .tr .td:nth-child(even) {
+    background: none;
+  }
 }
