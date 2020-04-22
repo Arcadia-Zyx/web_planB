@@ -34,7 +34,7 @@ export class AdminComponent implements OnInit,OnDestroy{
   ];
 
   collapse_order:boolean=false;
-  dtOptions: DataTables.Settings={autoWidth:true};
+  dtOptions: DataTables.Settings={autoWidth:true,responsive: true};
   dtTrigger: Subject<any>=new Subject();
   orderList: fullOrder[]=[];
   totalIncome:number=0;
@@ -45,7 +45,7 @@ export class AdminComponent implements OnInit,OnDestroy{
   newStatus:string;
 
   collapse_item:boolean=true;
-  dtOptions2: DataTables.Settings={autoWidth:true};
+  dtOptions2: DataTables.Settings={autoWidth:true,responsive: true};
   dtTrigger2: Subject<any>=new Subject();
   itemsList:item[]=[];
   selectedItem:item={
