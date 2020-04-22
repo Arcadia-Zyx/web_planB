@@ -189,7 +189,7 @@
                           clip-rule="evenodd"/>
                   </svg>
                 </button>
-                <button class="btn" (click)="showOrder(content,i)">
+                <button class="btn" (click)="deleteItem(i)">
                   <svg class="bi bi-x" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" d="M11.854 4.146a.5.5 0 010 .708l-7 7a.5.5 0 01-.708-.708l7-7a.5.5 0 01.708 0z" clip-rule="evenodd"/>
                     <path fill-rule="evenodd" d="M4.146 4.146a.5.5 0 000 .708l7 7a.5.5 0 00.708-.708l-7-7a.5.5 0 00-.708 0z" clip-rule="evenodd"/>
@@ -258,7 +258,7 @@
 
 <ng-template #content2 let-modal>
   <div class="modal-header modal-lg">
-    <h3 class="modal-title" id="modal-title2">Order Detail</h3>
+    <h3 class="modal-title" id="modal-title2">Edit item</h3>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
