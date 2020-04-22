@@ -10,6 +10,7 @@ export class CartComponent implements OnInit {
   cartList:item[]=[];
   totalPrice=0;
   temp:cartItem[]=[];
+  qtyCheck={};
   address: string;
 
   constructor(private httpConnection:HttpConnectionService) { }
@@ -30,6 +31,7 @@ export class CartComponent implements OnInit {
       await this.httpConnection.getItemById(i._id).then(value => {
         let goods:item=value;
         if (goods!=null) {
+          this.qtyCheck[goods._id]=goods.quantity;
           goods.quantity = i.quantity;
           this.cartList.push(goods);
         } else {
@@ -60,6 +62,12 @@ export class CartComponent implements OnInit {
   }
   submitOrder() {
     if (this.cartList.length>0) {
+      for (let i of this.cartList){
+        if (this.qtyCheck[i._id]<i.quantity){
+          alert("Sorry, the quantity of "+i.name+" exceed the limit!");
+          return;
+        }
+      }
       this.httpConnection.placeOrder(this.cartList).then(val => {
         if (val) {
           this.clearAll();
