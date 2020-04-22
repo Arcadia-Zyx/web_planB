@@ -7,15 +7,7 @@ import {HttpConnectionService, item, cartItem} from '../http-connection.service'
   styleUrls: ['./cart.component.scss']
 })
 export class CartComponent implements OnInit {
-  cartList:item[]=[{
-    _id:'1235657457547',
-    name: "apple",
-    description: "des",
-    price: 1.0,
-    quantity: 10,
-    category: "foods",
-    picture: "/assets/apple.png"
-  }];
+  cartList:item[]=[];
   totalPrice=0;
   temp:cartItem[]=[];
   address: string;
@@ -67,14 +59,16 @@ export class CartComponent implements OnInit {
     sessionStorage.setItem('cart',JSON.stringify([]));
   }
   submitOrder() {
-    this.httpConnection.placeOrder(this.cartList).then(val => {
-      if (val) {
-        this.clearAll();
-        alert('Your order has been placed!');
-      } else {
-        alert('Submit order failed!');
-      }
-    });
+    if (this.cartList.length>0) {
+      this.httpConnection.placeOrder(this.cartList).then(val => {
+        if (val) {
+          this.clearAll();
+          alert('Your order has been placed!');
+        } else {
+          alert('Submit order failed!');
+        }
+      });
+    }
   }
 }
 

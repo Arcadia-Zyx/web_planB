@@ -21,6 +21,7 @@ import {MatListModule} from "@angular/material/list";
 import {MatButtonModule} from "@angular/material/button";
 import {AdminComponent} from './admin/admin.component';
 import {ChartsModule} from 'ng2-charts';
+import {DataTablesModule} from 'angular-datatables';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import {ChartsModule} from 'ng2-charts';
     MatIconModule,
     MatButtonModule,
     FlexLayoutModule,
-    ChartsModule
+    ChartsModule,
+    DataTablesModule
   ],
   providers: [],
   bootstrap: [AppComponent]

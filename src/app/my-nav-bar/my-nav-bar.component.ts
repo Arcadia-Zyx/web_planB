@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {HttpConnectionService} from '../http-connection.service';
 import {Router} from '@angular/router';
-import {$} from "protractor";
+import {$} from 'protractor';
 
 @Component({
   selector: 'app-my-nav-bar',
@@ -10,51 +10,71 @@ import {$} from "protractor";
 })
 export class MyNavBarComponent implements OnInit {
   public isMenuCollapsed = true;
-  menu=[{
-    name:'Home',
-    address:'/'
-  },{
-    name:'Login',
-    address:'/login'
-  },{
-    name:'Sign up',
-    address:'/signup'
+  menu = [{
+    name: 'Home',
+    address: '/'
+  }, {
+    name: 'Login',
+    address: '/login'
+  }, {
+    name: 'Sign up',
+    address: '/signup'
   }];
 
-  constructor(private httpConnection:HttpConnectionService,
-              private router:Router) { }
+  constructor(private httpConnection: HttpConnectionService,
+              private router: Router) {
+  }
 
   ngOnInit() {
-    if (this.httpConnection.status=='login'){
-      this.menu=[{
-        name:'Home',
-        address:'/'
-      },{
-        name:'Logout',
-        address:''
-      },{
-        name:'myAccount',
-        address:'/myAccount'
-      },{
-        name:'Cart',
-        address:'/shoppingCart'
-      }];
+    if (this.httpConnection.status == 'login') {
+      if (this.httpConnection.isAdmin) {
+        this.menu = [{
+          name: 'Home',
+          address: '/'
+        }, {
+          name: 'Logout',
+          address: ''
+        }, {
+          name: 'Dashboard',
+          address: '/admin'
+        }];
+      } else {
+        this.menu = [{
+          name: 'Home',
+          address: '/'
+        }, {
+          name: 'Logout',
+          address: ''
+        }, {
+          name: 'myAccount',
+          address: '/myAccount'
+        }, {
+          name: 'Cart',
+          address: '/shoppingCart'
+        }];
+      }
     }
 
   }
 
-  logout(){
+  logout() {
     this.httpConnection.logout();
-    alert("Logout!");
-    this.menu=[{
-      name:'Home',
-      address:'/'
-    },{
-      name:'Login',
-      address:'/login'
+    alert('Logout!');
+    this.menu = [{
+      name: 'Home',
+      address: '/'
+    }, {
+      name: 'Login',
+      address: '/login'
+    }, {
+      name: 'Sign up',
+      address: '/signup'
     }];
     this.router.navigateByUrl('/');
+  }
 
+  navClick(address: string) {
+    this.router.navigateByUrl(address);
   }
 
 }

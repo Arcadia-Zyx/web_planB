@@ -19,7 +19,6 @@ export class HttpConnectionService {
   constructor(private http: HttpClient) {
     let conTemp:loginInfo = JSON.parse(sessionStorage.getItem('loginInfo'));
     if (conTemp!=null){
-      console.log(conTemp.token);
       this.headers= new HttpHeaders().set('Authorization', 'Bearer ' + conTemp.token);
       this.isAdmin=conTemp.isAdmin;
       this.name=conTemp.username;
@@ -172,6 +171,69 @@ export class HttpConnectionService {
     });
   }
 
+  public async getAllOrder(){
+    return new Promise<fullOrder[]>(resolve => {
+      if (!this.isAdmin) resolve(null);
+      else {
+        this.http.get<fullOrder[]>(backend + 'admins/getAllOrders', {headers: this.headers}).subscribe(value => {
+          resolve(value);
+        }, error => {
+          resolve(null);
+        });
+      }
+    });
+  }
+
+  public async getTops(){
+    return new Promise<rank[]>(resolve => {
+        this.http.get<rank[]>(backend + 'topTenSales', {headers: this.headers}).subscribe(value => {
+          resolve(value);
+        }, error => {
+          resolve(null);
+        });
+    });
+  }
+
+  public async updateStatus(newOne:fullOrder){
+    return new Promise<boolean>(resolve => {
+      this.http.put(backend + 'admins/changeOrderHistory/'+newOne._id,newOne, {headers: this.headers}).subscribe(value => {
+        resolve(true);
+      }, error => {
+        resolve(false);
+      });
+    });
+  }
+
+  public async updateItem(newOne:item){
+    return new Promise<boolean>(resolve => {
+      this.http.put(backend + 'admins/updateItem/'+newOne._id,newOne, {headers: this.headers}).subscribe(value => {
+        resolve(true);
+      }, error => {
+        resolve(false);
+      });
+    });
+  }
+
+  public async addItem(newOne:item){
+    return new Promise<boolean>(resolve => {
+      this.http.post(backend + 'admins/addItems',newOne, {headers: this.headers}).subscribe(value => {
+        resolve(true);
+      }, error => {
+        resolve(false);
+      });
+    });
+  }
+
+  public async deleteItem(id:string){
+    return new Promise<boolean>(resolve => {
+      this.http.delete(backend + 'admins/deleteItem/'+id, {headers: this.headers}).subscribe(value => {
+        resolve(true);
+      }, error => {
+        resolve(false);
+      });
+    });
+  }
+
   private changeUserStatus(status: string) {
     this.status = status;
     this.loginStatus.emit(status);
@@ -216,6 +278,18 @@ export interface order{
   items:item[]
 }
 
+export interface fullOrder{
+  _id:string,
+  price:number,
+  createdAt:string,
+  status:string,
+  firstName:string,
+  lastName:string,
+  address:string,
+  phonenumber:number,
+  items:item[]
+}
+
 export interface cartItem{
   _id:string;
   quantity:number;
@@ -225,4 +299,10 @@ export interface loginInfo{
   token:string,
   username:string,
   isAdmin:boolean,
+}
+
+export interface rank {
+  _id:string,
+  name:string,
+  sales:number,
 }

@@ -20,7 +20,18 @@ export class HomepageComponent implements OnInit {
   recentOrders:item[]=[];
   categoryList:string[]=[];
   filterList:item[]=[];
-  filterIndex:number=-1;
+  filter:string="Show All";
+  priceIndex:number=0;
+  priceFilter=[
+    {l:0,r:-1},
+    {l:0,r:10},
+    {l:10,r:20},
+    {l:20,r:50},
+    {l:50,r:100},
+    {l:100,r:200},
+    {l:200,r:500},
+    {l:500,r:-1},
+  ];
   constructor(private modalService:NgbModal,
               private httpConnection:HttpConnectionService,
               private router: Router
@@ -29,63 +40,7 @@ export class HomepageComponent implements OnInit {
   ngOnInit() {
 
     if (this.httpConnection.localTest){
-      this.filterList=[{
-        _id:'123',
-        name: "apple",
-        description: "des",
-        price: 1.0,
-        quantity: 10,
-        category: "foods",
-        picture: "/assets/apple.png"
-      },{
-        _id:'123',
-        name: "apple",
-        description: "des",
-        price: 1.0,
-        quantity: 2,
-        category: "foods",
-        picture: "/assets/apple.png"
-      },{
-        _id:'123',
-        name: "apple",
-        description: "des",
-        price: 1.0,
-        quantity: 0,
-        category: "foods",
-        picture: "/assets/apple.png"
-      },{
-        _id:'123',
-        name: "apple",
-        description: "des",
-        price: 1.0,
-        quantity: 10,
-        category: "foods",
-        picture: "/assets/apple.png"
-      },{
-        _id:'123',
-        name: "apple",
-        description: "des",
-        price: 1.0,
-        quantity: 10,
-        category: "foods",
-        picture: "/assets/apple.png"
-      },{
-        _id:'123',
-        name: "apple",
-        description: "des",
-        price: 1.0,
-        quantity: 10,
-        category: "foods",
-        picture: "/assets/apple.png"
-      },{
-        _id:'123',
-        name: "apple",
-        description: "des",
-        price: 1.0,
-        quantity: 10,
-        category: "foods",
-        picture: "/assets/apple.png"
-      }];
+
     } else {
       this.httpConnection.getAllItems().then(value=>{
         this.items=value;
@@ -94,21 +49,25 @@ export class HomepageComponent implements OnInit {
             this.categoryList.push(k.category);
           }
         }
-        this.selectFilter(-1);
-        this.httpConnection.getLastOrder().then(val=>{
-          if (val){
-            this.recentOrders=val.items;
-            for (let i of this.recentOrders){
-              i.quantity=0;
-              for (let j of this.items){
-                if (j._id==i._id){
-                  i.quantity=j.quantity;
-                  break;
+        this.filter="Select Category";
+        this.priceIndex=0;
+        this.selectFilter();
+        if (!this.httpConnection.isAdmin) {
+          this.httpConnection.getLastOrder().then(val => {
+            if (val) {
+              this.recentOrders = val.items;
+              for (let i of this.recentOrders) {
+                i.quantity = 0;
+                for (let j of this.items) {
+                  if (j._id == i._id) {
+                    i.quantity = j.quantity;
+                    break;
+                  }
                 }
               }
             }
-          }
-        });
+          });
+        }
       });
     }
   }
@@ -117,26 +76,44 @@ export class HomepageComponent implements OnInit {
     if (this.searchText){
       this.httpConnection.searchItems(this.searchText).then(value => {
         if (value) this.items=value;
-        this.selectFilter(-1);
+        this.filter="Select Category";
+        this.priceIndex=0;
+        this.selectFilter();
       });
     } else {
       this.httpConnection.getAllItems().then(value=>{
         this.items=value;
-        this.selectFilter(-1);
+        this.filter="Select Category";
+        this.priceIndex=0;
+        this.selectFilter();
       });
     }
   }
-  selectFilter(index:number){
-      this.filterIndex=index;
-      if (index<0){
-        this.filterList=this.items;
+  selectFilter(){
+      if (this.filter=="Select Category"||this.filter=="Show All"){
+        this.filterList=[];
+        for (let i of this.items){
+          if (i.price>=this.priceFilter[this.priceIndex].l){
+            if (this.priceFilter[this.priceIndex].r<0){
+              this.filterList.push(i);
+            } else if (i.price<this.priceFilter[this.priceIndex].r){
+              this.filterList.push(i);
+            }
+          }
+        }
       } else {
         this.filterList=[];
         for (let i of this.items){
-          if (i.category==this.categoryList[index]){
-            this.filterList.push(i);
+          if (i.category==this.filter && i.price>=this.priceFilter[this.priceIndex].l){
+            if (this.priceFilter[this.priceIndex].r<0){
+              this.filterList.push(i);
+            } else if (i.price<this.priceFilter[this.priceIndex].r){
+              this.filterList.push(i);
+            }
+
           }
         }
+        console.log(this.filter,this.priceIndex,this.filterList);
       }
   }
   openDetail(content,index:number,source:string){

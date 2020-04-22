@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
-  <a class="navbar-brand" [routerLink]="'.'">Safe Shopping</a>
+  <a class="navbar-brand" [routerLink]="'.'">Enjoy Shopping</a>
 
   <!-- Step 3: Toggle the value of the property when the toggler button is clicked. -->
   <button class="navbar-toggler" type="button" (click)="isMenuCollapsed = !isMenuCollapsed">
@@ -12,7 +12,7 @@
 
     <div *ngFor="let i of menu" >
       <a class="nav-link"  *ngIf="i.name=='Logout'" href="javascript:void(0)" (click)="isMenuCollapsed = true" (click)="logout()">{{i.name}}</a>
-      <a class="nav-link"  *ngIf="i.name!='Logout'" href="{{i.address}}">{{i.name}}</a>
+      <a class="nav-link"  *ngIf="i.name!='Logout'" href="javascript:void(0)" (click)="navClick(i.address)">{{i.name}}</a>
     </div>
 
 <!--    <ul class="navbar-nav">-->
