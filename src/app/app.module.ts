@@ -22,6 +22,7 @@ import {MatButtonModule} from "@angular/material/button";
 import {AdminComponent} from './admin/admin.component';
 import {ChartsModule} from 'ng2-charts';
 import {DataTablesModule} from 'angular-datatables';
+import { AlertComponent } from './alert/alert.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import {DataTablesModule} from 'angular-datatables';
     SignupComponent,
     SearchBarComponent,
     AdminComponent,
+    AlertComponent,
   ],
   imports: [
     BrowserModule,

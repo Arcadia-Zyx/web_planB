@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpConnectionService,userInfo,item,order} from '../http-connection.service';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import Swal from 'sweetalert2';
+import {AlertService} from "../alert.service";
+
 declare var $: any;
 @Component({
   selector: 'app-account',
@@ -26,7 +29,8 @@ export class AccountComponent implements OnInit {
 
   needChanged=false;
   constructor(private modalService:NgbModal,
-  private httpConnection:HttpConnectionService) { }
+  private httpConnection:HttpConnectionService,
+              private alertService: AlertService) { }
   ngOnInit() {
     if (!this.httpConnection.localTest){
       this.httpConnection.getOrders().then(val=>{
@@ -57,9 +61,19 @@ export class AccountComponent implements OnInit {
     this.httpConnection.updateInfo(this.myAccount).then(value=>{
       if (value){
         this.needChanged=false;
-        alert("Update successfully!");
+        // this.alertService.success('Update successfully!')
+        Swal.fire({
+          type: 'success',
+          title: 'Well Done!',
+          text: 'Update successfully!'
+        });
+        // alert("Update successfully!");
       } else {
-        alert("Update failed");
+        Swal.fire({
+          type: 'error',
+          title: 'Oops...',
+          text: 'Update Failed'
+        });
       }
     });
   }

@@ -5,6 +5,8 @@ import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 import {HttpConnectionService, fullOrder, item,rank} from '../http-connection.service';
 import {Subject} from 'rxjs';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import Swal from 'sweetalert2';
+import {AlertService} from "../alert.service";
 
 @Component({
   selector: 'app-admin',
@@ -59,7 +61,8 @@ export class AdminComponent implements OnInit,OnDestroy{
   };
 
   constructor(private modalService:NgbModal,
-              private httpConnection:HttpConnectionService)
+              private httpConnection:HttpConnectionService,
+              private alertService: AlertService)
   { }
 
   ngOnInit() {
@@ -146,7 +149,13 @@ export class AdminComponent implements OnInit,OnDestroy{
     if (this.selectedItem._id){
       this.httpConnection.updateItem(this.selectedItem).then(value => {
         if (value){
-          alert("Update successfully!");
+          // alert("Update successfully!");
+          // this.alertService.success('Update successfully!');
+          Swal.fire({
+            type: 'success',
+            title: 'Well Done!',
+            text: 'Update successfully!'
+          });
           this.httpConnection.getAllItems().then(val => {
             if (val){
               this.itemsList=val;
@@ -156,13 +165,23 @@ export class AdminComponent implements OnInit,OnDestroy{
           });
           this.modalService.dismissAll();
         } else {
-          alert("Failed!");
+          Swal.fire({
+            type: 'error',
+            title: 'Oops...',
+            text: 'Failed!'
+          });
         }
       });
     } else {
       this.httpConnection.addItem(this.selectedItem).then(value => {
         if (value){
-          alert("Add successfully!");
+          // alert("Add successfully!");
+          // this.alertService.success('Add successfully!');
+          Swal.fire({
+            type: 'success',
+            title: 'Well Done!',
+            text: 'Add successfully!'
+          });
           this.httpConnection.getAllItems().then(val => {
             if (val){
               this.itemsList=val;
@@ -172,7 +191,11 @@ export class AdminComponent implements OnInit,OnDestroy{
           });
           this.modalService.dismissAll();
         } else {
-          alert("Failed!");
+          Swal.fire({
+            type: 'error',
+            title: 'Oops...',
+            text: 'Failed!'
+          });
         }
       });
     }
@@ -180,7 +203,13 @@ export class AdminComponent implements OnInit,OnDestroy{
   deleteItem(index:number){
     this.httpConnection.deleteItem(this.itemsList[index]._id).then(value => {
       if (value){
-        alert("Deleted!");
+        // alert("Deleted!");
+        // this.alertService.success('Deleted!');
+        Swal.fire({
+          type: 'success',
+          title: 'Well Done!',
+          text: 'Deleted!'
+        });
         this.itemsList.splice(index,1);
       }
     });

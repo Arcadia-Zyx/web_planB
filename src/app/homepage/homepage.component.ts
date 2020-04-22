@@ -4,6 +4,8 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import {HttpConnectionService,item,cartItem} from '../http-connection.service';
 import {Router} from '@angular/router';
 import {isAsciiLetter} from "codelyzer/angular/styles/chars";
+import Swal from "sweetalert2";
+import {AlertService} from "../alert.service";
 declare var $: any;
 
 @Component({
@@ -34,7 +36,8 @@ export class HomepageComponent implements OnInit {
   ];
   constructor(private modalService:NgbModal,
               private httpConnection:HttpConnectionService,
-              private router: Router
+              private router: Router,
+              private alertService: AlertService
   ) { }
 
   ngOnInit() {
@@ -130,7 +133,12 @@ export class HomepageComponent implements OnInit {
   }
   addToCart(){
     if (this.httpConnection.status=='logout' && this.httpConnection.localTest==false) {
-      alert('You need to login first!');
+      // alert('You need to login first!');
+      Swal.fire({
+        type: 'error',
+        title: 'Oops...',
+        text: 'You need to login first!'
+      });
       this.modalService.dismissAll();
       this.router.navigate(['login']);
     } else {
@@ -139,7 +147,12 @@ export class HomepageComponent implements OnInit {
       if (!temp) temp = [];
       for (let i of temp){
         if (i._id===this.selectedItem._id){
-          alert('This item is already in cart.');
+          // alert('This item is already in cart.');
+          Swal.fire({
+            type: 'error',
+            title: 'Oops...',
+            text: 'This item is already in cart.'
+          });
           this.selectedQty = 0;
           this.modalService.dismissAll();
           return;
@@ -148,7 +161,13 @@ export class HomepageComponent implements OnInit {
       temp.push({_id: this.selectedItem._id, quantity: this.selectedQty});
       this.selectedQty = 0;
       sessionStorage.setItem('cart', JSON.stringify(temp));
-      alert('Add to cart successfully');
+      // alert('Add to cart successfully');
+      // this.alertService.success('Add to cart successfully');
+      Swal.fire({
+        type: 'success',
+        title: 'Well Done!',
+        text: 'Add to cart successfully!'
+      });
       this.modalService.dismissAll('add');
     }
   }
