@@ -1,32 +1,18 @@
 <div class="container">
   <app-my-nav-bar></app-my-nav-bar>
   <div class="row">
-    <div class="col-xl-4">
-      <div class="card" display="inline-block">
+    <div class="col-md-6">
+      <div class="card" >
         <div class="card-header">
           <div class="card-title">
             <b>Pending Orders:</b>
           </div>
         </div>
         <div class="card-body">
-          <div class="dig" style="text-align: center; font-size: 5rem;">
-            <b>
-              <span *ngIf="pendingOrder" style="color:green">{{pendingOrder}}</span>
-              <span *ngIf="!pendingOrder" style="color:greenyellow">{{pendingOrder}}</span>
-            </b>
-          </div>
-        </div>
-      </div>
-      <div class="card " display="inline-block" >
-        <div class="card-header">
-          <div class="card-title">
-            <b>Total Incomes:</b>
-          </div>
-        </div>
-        <div class="card-body">
-          <div class="dig" style="text-align: center; font-size: 4.5rem;">
-            <b>
-              <span style="color:black">{{totalIncome|currency}}</span>
+          <div class="dig" style="text-align: center; font-size: 3rem;">
+            <b class="col-2 text-truncate" style="color:black;overflow:auto;">
+              <span *ngIf="pendingOrder" style="color:green;">{{pendingOrder}}</span>
+              <span *ngIf="!pendingOrder" style="color:greenyellow;">{{pendingOrder}}</span>
             </b>
           </div>
         </div>
@@ -34,14 +20,40 @@
     </div>
 
 
-    <div class="col-xl-8">
-      <div class="card">
+
+    <div class="col-md-6 ">
+      <div class="card " >
         <div class="card-header">
           <div class="card-title">
-            <b>Sales Data:</b>
+            <b>Total Incomes:</b>
           </div>
         </div>
         <div class="card-body">
+          <div class="dig" style="text-align: center; font-size: 3rem;">
+            <b class="col-2 text-truncate" style="color:black;overflow:auto;">
+              <span class="col-2 text-truncate" >{{totalIncome| currency:'USD':'symbol':'1.0'}}</span>
+            </b>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+
+
+
+    <div class="row">
+
+    <div class="col-md-12">
+      <div class="card ">
+        <div class="card-header">
+          <div class="card-title">
+            <b>Top 10 Sales:</b>
+          </div>
+        </div>
+        <div class="card-body" id="ch">
           <div class="chart">
 <!--                        <canvas baseChart-->
 <!--                                [datasets]="barChartData"-->
@@ -54,14 +66,33 @@
 <!--                          &lt;!&ndash;                    chartType="horizontalBar">&ndash;&gt;-->
 <!--                        </canvas>-->
 
-
-            <canvas id="chartDonut4" width="800" height="450"></canvas>
+            <canvas id="chartDonut4" class="ct-chart ct-perfect-fourth" ></canvas>
+<!--            <canvas-->
+<!--              baseChart-->
+<!--              chartType="doughnut"-->
+<!--              [data]="doughnutChartData"-->
+<!--              [labels]="doughnutChartLabels"-->
+<!--              [options]="chartOptions"-->
+<!--              [legend]="true">-->
+<!--            </canvas>-->
 
           </div>
         </div>
       </div>
     </div>
 
+
+<!--    <div class="col-md-6">-->
+<!--      <div class="card ">-->
+<!--        <div class="card-header">-->
+<!--          <div class="card-title">-->
+<!--            <b>Top 10 Sales:</b>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="card-body" >-->
+
+<!--        </div>-->
+<!--  </div>-->
   </div>
 
 
