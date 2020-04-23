@@ -86,4 +86,5 @@ export class AccountComponent implements OnInit {
     this.modalService.open(content,{ariaLabelledBy:'modal-title',size: 'lg' });
   }
 
+
 }

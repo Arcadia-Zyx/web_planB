@@ -1,6 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Label} from 'ng2-charts';
-import {ChartType, ChartOptions, ChartDataSets} from 'chart.js';
+
+import {Chart,ChartType, ChartOptions, ChartDataSets} from 'chart.js';
 import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 import {HttpConnectionService, fullOrder, item,rank} from '../http-connection.service';
 import {Subject} from 'rxjs';
@@ -8,17 +9,32 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2';
 import {AlertService} from "../alert.service";
 
+
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.scss']
 })
 export class AdminComponent implements OnInit,OnDestroy{
+  private truncateLength=10;
+  public canvas : any;
+  public ctx;
+  public ChartData: number []=[];
+
 
   public barChartOptions: ChartOptions = {
     responsive: true,
+    maintainAspectRatio: false,
     // We use these empty structures as placeholders for dynamic theming.
-    scales: { xAxes: [{}], yAxes: [{}] },
+    scales: { xAxes: [{
+        // ticks: {
+        //   callback: value => _.truncate(value, { length: 5 })
+        // }
+      }], yAxes: [{
+        // ticks: {
+        //   callback: value => _.truncate(value, { length: this.truncateLength })
+        // }
+      }] },
     plugins: {
       datalabels: {
         anchor: 'end',
@@ -36,7 +52,7 @@ export class AdminComponent implements OnInit,OnDestroy{
   ];
 
   collapse_order:boolean=false;
-  dtOptions: DataTables.Settings={autoWidth:true};
+  dtOptions: DataTables.Settings={autoWidth:true,responsive: true};
   dtTrigger: Subject<any>=new Subject();
   orderList: fullOrder[]=[];
   totalIncome:number=0;
@@ -46,8 +62,8 @@ export class AdminComponent implements OnInit,OnDestroy{
   totalPrice:number;
   newStatus:string;
 
-  collapse_item:boolean=true;
-  dtOptions2: DataTables.Settings={autoWidth:true};
+  collapse_item:boolean=false;
+  dtOptions2: DataTables.Settings={autoWidth:true,responsive: true};
   dtTrigger2: Subject<any>=new Subject();
   itemsList:item[]=[];
   selectedItem:item={
@@ -59,6 +75,7 @@ export class AdminComponent implements OnInit,OnDestroy{
     category: '',
     picture: ''
   };
+  private myChart: Chart;
 
   constructor(private modalService:NgbModal,
               private httpConnection:HttpConnectionService,
@@ -66,14 +83,54 @@ export class AdminComponent implements OnInit,OnDestroy{
   { }
 
   ngOnInit() {
+
+
+
     this.httpConnection.getTops().then(val=>{
       if (val){
         for (let i of val){
+          // this.barChartLabels.push(['','Line1', 'Line2'],);
           this.barChartLabels.push(i.name);
+          this.ChartData.push(i.sales);
+          // this.barChartLabels.push(['Line1']);
           this.barChartData[0].data.push(i.sales);
         }
+
+        this.canvas = document.getElementById("chartDonut4");
+        this.ctx = this.canvas.getContext("2d");
+
+        this.myChart = new Chart(this.ctx,  {
+          type: 'doughnut',
+          data: {
+            labels: this.barChartLabels,
+            datasets: [{
+              label: "Population (millions)",
+              backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850","#FF6384",
+                "#4BC0C0",
+                "#FFCE56",
+                "#E7E9ED",
+                "#36A2EB"],
+              // data:  [1,2,3,4,5,6,7,8,9,10]
+              data:this.ChartData,
+              // this.barChartData[0].data
+            }]
+          },
+          options: {
+            title: {
+              display: true,
+              text: 'Top 10 Sales'
+            },
+            legend: {
+              display: false,
+              // position:"bottom"
+            },
+
+          }
+        });
       }
     });
+
+
     this.httpConnection.getAllOrder().then(val=>{
       if (val){
         this.orderList=val;
