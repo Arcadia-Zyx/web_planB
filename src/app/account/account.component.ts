@@ -41,6 +41,7 @@ export class AccountComponent implements OnInit {
             i.price+=j.price*j.quantity;
           }
         }
+        this.myOrders.reverse();
       });
       this.httpConnection.getUserInfo().then(val=>{
         this.myAccount=val;

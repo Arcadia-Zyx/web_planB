@@ -84,8 +84,6 @@ export class AdminComponent implements OnInit,OnDestroy{
 
   ngOnInit() {
 
-
-
     this.httpConnection.getTops().then(val=>{
       if (val){
         for (let i of val){

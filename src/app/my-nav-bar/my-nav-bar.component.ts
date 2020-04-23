@@ -64,11 +64,11 @@ export class MyNavBarComponent implements OnInit {
     this.httpConnection.logout();
     // alert('Logout!');
     // this.alertService.success('You have logged out');
-    Swal.fire({
-      type: 'success',
-      title: 'Well Done!',
-      text: 'You have logged out!'
-    });
+    // Swal.fire({
+    //   type: 'success',
+    //   title: 'Well Done!',
+    //   text: 'You have logged out!'
+    // });
     this.menu = [{
       name: 'Home',
       address: '/'
@@ -79,8 +79,10 @@ export class MyNavBarComponent implements OnInit {
       name: 'Sign up',
       address: '/signup'
     }];
-    this.router.navigateByUrl('/');
-    window.location.reload();
+
+    this.router.navigateByUrl('/').then(()=>{
+      window.location.reload();
+    });
   }
 
   navClick(address: string) {
