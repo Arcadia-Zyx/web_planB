@@ -123,7 +123,7 @@ export class HomepageComponent implements OnInit {
     if (source=='recent'){
       this.selectedItem=this.recentOrders[index];
     } else {
-      this.selectedItem=this.items[index];
+      this.selectedItem=this.filterList[index];
     }
     this.selectOption=[];
     for (let i=1;i<=(this.selectedItem.quantity<5?this.selectedItem.quantity:5);i++){
