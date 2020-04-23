@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpConnectionService, item, cartItem} from '../http-connection.service';
+import Swal from "sweetalert2";
+import {AlertService} from "../alert.service";
 
 @Component({
   selector: 'app-cart',
@@ -13,7 +15,8 @@ export class CartComponent implements OnInit {
   qtyCheck={};
   address: string;
 
-  constructor(private httpConnection:HttpConnectionService) { }
+  constructor(private httpConnection:HttpConnectionService,
+              private alertService: AlertService) { }
   ngOnInit() {
     this.temp=JSON.parse(sessionStorage.getItem('cart'));
     console.log(this.temp);
@@ -35,7 +38,12 @@ export class CartComponent implements OnInit {
           goods.quantity = i.quantity;
           this.cartList.push(goods);
         } else {
-          alert("Error while fetching data");
+          // alert("Error while fetching data");
+          Swal.fire({
+            type: 'error',
+            title: 'Oops...',
+            text: 'Error while fetching data'
+          });
         }
       });
     }
@@ -64,16 +72,32 @@ export class CartComponent implements OnInit {
     if (this.cartList.length>0) {
       for (let i of this.cartList){
         if (this.qtyCheck[i._id]<i.quantity){
-          alert("Sorry, the quantity of "+i.name+" exceed the limit!");
+          // alert("Sorry, the quantity of "+i.name+" exceed the limit!");
+          Swal.fire({
+            type: 'error',
+            title: 'Oops...',
+            text: "Sorry, the quantity of "+i.name+" exceed the limit!"
+          });
           return;
         }
       }
       this.httpConnection.placeOrder(this.cartList).then(val => {
         if (val) {
           this.clearAll();
-          alert('Your order has been placed!');
+          // alert('Your order has been placed!');
+          // this.alertService.success('Your order has been placed!');
+          Swal.fire({
+            type: 'success',
+            title: 'Well Done!',
+            text: 'Your order has been placed!'
+          });
         } else {
-          alert('Submit order failed!');
+          // alert('Submit order failed!');
+          Swal.fire({
+            type: 'error',
+            title: 'Oops...',
+            text: 'Submit order failed!'
+          });
         }
       });
     }
