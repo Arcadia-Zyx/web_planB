@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Label} from 'ng2-charts';
-
+import { ChartsModule } from 'ng2-charts';
 import {Chart,ChartType, ChartOptions, ChartDataSets} from 'chart.js';
 import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 import {HttpConnectionService, fullOrder, item,rank} from '../http-connection.service';
@@ -19,6 +19,15 @@ export class AdminComponent implements OnInit,OnDestroy{
   public ctx;
   public ChartData: number []=[];
 
+  public chartOptions: ChartOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+      legend: {
+        display: false,
+        position: "right"
+      }
+
+  };
 
   public barChartOptions: ChartOptions = {
     responsive: true,
@@ -74,7 +83,10 @@ export class AdminComponent implements OnInit,OnDestroy{
     picture: ''
   };
   private myChart: Chart;
-
+  public doughnutChartData:any []=[]
+    // =[1,2,3,4,5,6,7,8,9,10]
+  public doughnutChartLabels:any []=[]
+    // =[1,2,3,4,5,6,7,8,9,10]
   constructor(private modalService:NgbModal,
               private httpConnection:HttpConnectionService)
   { }
@@ -88,18 +100,55 @@ export class AdminComponent implements OnInit,OnDestroy{
         for (let i of val){
           // this.barChartLabels.push(['','Line1', 'Line2'],);
           this.barChartLabels.push(i.name);
-          this.ChartData.push(i.sales);
+          this.doughnutChartLabels.push(i.name);
+
+          this.doughnutChartData.push(i.sales);
           // this.barChartLabels.push(['Line1']);
           this.barChartData[0].data.push(i.sales);
         }
 
+        console.log("label"+this.barChartLabels)
+        console.log(this.barChartData[0].data)
+
+
         this.canvas = document.getElementById("chartDonut4");
         this.ctx = this.canvas.getContext("2d");
 
-        this.myChart = new Chart(this.ctx,  {
-          type: 'doughnut',
+        this.myChart = new Chart(this.ctx,
+          // {
+          //   type: 'pie',
+          //   data: {
+          //     labels: this.barChartLabels.slice(0,4),
+          //     datasets: [
+          //       {
+          //         label: "Population (millions)",
+          //         backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+          //         data: this.barChartData[0].data.slice(0,4)
+          //       }
+          //     ]
+          //   },
+          //   options: {
+          //     responsive: false,
+          //     legend: {
+          //       display: true,
+          //       position: "top"
+          //     },
+          //     tooltips: {
+          //     },
+          //     title: {
+          //       display: true,
+          //       text: 'Predicted world population (millions) in 2050'
+          //     },
+          //
+          //   }
+          // });
+
+          {
+          type: 'pie',
           data: {
-            labels: this.barChartLabels,
+            labels: this.barChartLabels
+              // .slice(0,4)
+            ,
             datasets: [{
               label: "Population (millions)",
               backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850","#FF6384",
@@ -108,22 +157,26 @@ export class AdminComponent implements OnInit,OnDestroy{
                 "#E7E9ED",
                 "#36A2EB"],
               // data:  [1,2,3,4,5,6,7,8,9,10]
-              data:this.ChartData,
-              // this.barChartData[0].data
+              // data:this.ChartData,
+              data:this.barChartData[0].data
+                // .slice(0,4)
             }]
           },
           options: {
+            // responsive: false,
             title: {
-              display: true,
+              display: false,
               text: 'Top 10 Sales'
             },
             legend: {
               display: false,
-              // position:"bottom"
+              position:"top"
             },
 
           }
-        });
+        }
+        );
+
       }
     });
 
@@ -184,6 +237,7 @@ export class AdminComponent implements OnInit,OnDestroy{
     }
   }
   editItem(content,index:number){
+    console.log("sdasdass")
     if (index<0){
       this.selectedItem={
         name:'',
