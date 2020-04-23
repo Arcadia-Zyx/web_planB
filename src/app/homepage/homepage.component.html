@@ -89,33 +89,6 @@
     </form>
   </div>
 
-
-  <div class="row" *ngIf="recentOrders.length>0">
-    <div class="col-xl-12">
-      <h4>Buy them again: </h4>
-      <div class="card-row">
-        <div class="row col-xl-12">
-        <div class="card col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-3"  *ngFor="let i of recentOrders let index=index" (click)="openDetail(content,index,'recent')">
-          <img style="max-width: 200px;" class="card-img-top" src="{{i.picture}}">
-          <div class="card-body">
-            <div class="card-title">
-              {{i.category | uppercase}} - <b>{{i.name}}</b>
-            </div>
-            <div class="card-text" style="display: flex">
-              <div>{{i.price | currency}} &nbsp;&nbsp;&nbsp;</div>
-              <div *ngIf="i.quantity==0" style="color:red">Out of stock</div>
-              <div *ngIf="i.quantity<=5 && i.quantity>0" style="color:red">Only {{i.quantity}} left</div>
-              <div *ngIf="i.quantity>5" style="color:green">In stock</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  </div>
-
-
-
   <div id="productView" class="product-grid" >
     <h4>Products: </h4>
     <div class="row" >
