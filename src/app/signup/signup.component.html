@@ -6,35 +6,35 @@
         <div class="card-header">
           <div class="card-title" style="font-size: 1.3rem"><b>User sign up</b></div>
         </div>
-        <div class="card-body">
+        <div class="card-body d-flex justify-content-center align-items-center">
           <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
             <div class="form-group">
               <label for="username">Username:</label>
-              <input type="text" class="form-control" id="username" required name="name" [(ngModel)]="myAccount.username" #name="ngModel">
+              <input type="text" class="form-control col-sm-auto col-xs-auto" id="username" required name="name" [(ngModel)]="myAccount.username" #name="ngModel">
               <div [hidden]="name.valid || name.pristine" class="alert alert-danger">Username is required!</div>
             </div>
             <div class="form-group">
               <label for="password">Password:</label>
-              <input type="password" class="form-control" id="password" required name="key" [(ngModel)]="myAccount.password" #key="ngModel">
+              <input type="password" class="form-control col-sm-auto col-xs-auto" id="password" required name="key" [(ngModel)]="myAccount.password" #key="ngModel">
               <div [hidden]="key.valid || key.pristine" class="alert alert-danger">Password is required!</div>
             </div>
             <div class="form-group">
               <label for="firstName">First Name:</label>
-              <input type="text" class="form-control" id="firstName" required name="fn" [(ngModel)]="myAccount.firstName" #fn="ngModel">
+              <input type="text" class="form-control col-sm-auto col-xs-auto" id="firstName" required name="fn" [(ngModel)]="myAccount.firstName" #fn="ngModel">
             </div>
             <div class="form-group">
               <label for="lastName">Last Name:</label>
-              <input type="text" class="form-control" id="lastName" required name="ln" [(ngModel)]="myAccount.lastName" #ln="ngModel">
+              <input type="text" class="form-control col-sm-auto col-xs-auto" id="lastName" required name="ln" [(ngModel)]="myAccount.lastName" #ln="ngModel">
             </div>
             <div class="form-group">
               <label for="phoneNumber">Phone Number:</label>
-              <input type="number" class="form-control" id="phoneNumber" required name="pn" [(ngModel)]="myAccount.phonenumber" #pn="ngModel">
+              <input type="number" class="form-control col-sm-auto col-xs-auto" id="phoneNumber" required name="pn" [(ngModel)]="myAccount.phonenumber" #pn="ngModel">
             </div>
             <div class="form-group">
               <label for="address">Address:</label>
-              <input type="text" class="form-control" id="address" required name="ad" [(ngModel)]="myAccount.address" #ad="ngModel">
+              <input type="text" class="form-control col-sm-auto col-xs-auto" id="address" required name="ad" [(ngModel)]="myAccount.address" #ad="ngModel">
             </div>
-            <button type="submit" class="btn btn-success" [disabled]="!loginForm.form.valid">Sign Up</button>
+            <button type="submit" class="btn btn-success col-sm-auto col-xs-auto " [disabled]="!loginForm.form.valid">Sign Up</button>
           </form>
         </div>
       </div>
