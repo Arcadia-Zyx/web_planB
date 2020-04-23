@@ -36,7 +36,7 @@ export class SignupComponent implements OnInit {
         Swal.fire({
           type: 'success',
           title: 'Well Done!',
-          text: 'login successfully!'
+          text: 'Sign up successfully!'
         });
         this.router.navigateByUrl('/');
       } else {

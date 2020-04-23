@@ -108,10 +108,6 @@ export class AdminComponent implements OnInit,OnDestroy{
           this.barChartData[0].data.push(i.sales);
         }
 
-        console.log("label"+this.barChartLabels)
-        console.log(this.barChartData[0].data)
-
-
         this.canvas = document.getElementById("chartDonut4");
         this.ctx = this.canvas.getContext("2d");
 
@@ -238,7 +234,6 @@ export class AdminComponent implements OnInit,OnDestroy{
     }
   }
   editItem(content,index:number){
-    console.log("sdasdass")
     if (index<0){
       this.selectedItem={
         name:'',

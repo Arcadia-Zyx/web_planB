@@ -142,7 +142,7 @@ export class HomepageComponent implements OnInit {
       this.modalService.dismissAll();
       this.router.navigate(['login']);
     } else {
-      if (this.selectedQty == 0) return;
+      if (!this.selectedQty) return;
       let temp: cartItem[] = JSON.parse(sessionStorage.getItem('cart'));
       if (!temp) temp = [];
       for (let i of temp){
