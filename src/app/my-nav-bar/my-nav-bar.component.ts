@@ -1,7 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpConnectionService} from '../http-connection.service';
 import {Router} from '@angular/router';
+import {AlertService} from "../alert.service";
 import {$} from 'protractor';
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-my-nav-bar',
@@ -22,7 +24,8 @@ export class MyNavBarComponent implements OnInit {
   }];
 
   constructor(private httpConnection: HttpConnectionService,
-              private router: Router) {
+              private router: Router,
+              private alertService: AlertService) {
   }
 
   ngOnInit() {
@@ -59,7 +62,13 @@ export class MyNavBarComponent implements OnInit {
 
   logout() {
     this.httpConnection.logout();
-    alert('Logout!');
+    // alert('Logout!');
+    // this.alertService.success('You have logged out');
+    // Swal.fire({
+    //   type: 'success',
+    //   title: 'Well Done!',
+    //   text: 'You have logged out!'
+    // });
     this.menu = [{
       name: 'Home',
       address: '/'
@@ -70,7 +79,10 @@ export class MyNavBarComponent implements OnInit {
       name: 'Sign up',
       address: '/signup'
     }];
-    this.router.navigateByUrl('/');
+
+    this.router.navigateByUrl('/').then(()=>{
+      window.location.reload();
+    });
   }
 
   navClick(address: string) {
