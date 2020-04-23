@@ -70,8 +70,8 @@
     <div class="col-xl-12">
       <h4>Buy them again: </h4>
       <div class="card-row">
-        <div class="row">
-        <div class="card col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-3" style="max-width: 200px;" *ngFor="let i of recentOrders let index=index" (click)="openDetail(content,index,'recent')">
+        <div class="row col-xl-12">
+        <div class="card col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-3"  *ngFor="let i of recentOrders let index=index" (click)="openDetail(content,index,'recent')">
           <img style="max-width: 200px;" class="card-img-top" src="{{i.picture}}">
           <div class="card-body">
             <div class="card-title">
